@@ -28,17 +28,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="46" selection-start="185" selection-end="185" vertical-scroll-proportion="-1.3076923">
+            <state line="5" column="47" selection-start="186" selection-end="186" vertical-scroll-proportion="0.27419356">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myjquery.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/myjquery.js">
+      <file leaf-file-name="livequery.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/livequery.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="118" column="11" selection-start="4646" selection-end="4646" vertical-scroll-proportion="0.0">
               <folding>
@@ -71,10 +71,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="test.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="72" selection-start="645" selection-end="645" vertical-scroll-proportion="0.3422619">
+            <state line="24" column="72" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -358,7 +358,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/myjquery.js">
+    <entry file="file://$PROJECT_DIR$/js/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="72" selection-start="645" selection-end="645" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/livequery.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="118" column="11" selection-start="4646" selection-end="4646" vertical-scroll-proportion="0.0">
           <folding>
@@ -369,14 +376,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="46" selection-start="185" selection-end="185" vertical-scroll-proportion="-1.3076923">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="72" selection-start="645" selection-end="645" vertical-scroll-proportion="0.3422619">
+        <state line="5" column="47" selection-start="186" selection-end="186" vertical-scroll-proportion="0.27419356">
           <folding />
         </state>
       </provider>
