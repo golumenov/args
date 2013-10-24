@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Тест Javascript</title>
-	<script src="myjquery.js"></script>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <title>Тест Javascript</title>
+	    <script src="js/myjquery.js"></script>
+<!--        <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<script src="js/test.js"></script>
 	</head>
 	<body>
 		<p>Реализация функции $('.class1 .class2') посредством функции getElementsByClassName
 		<p>Работает в следующих браузерах: Chrome, Firefox (Gecko) 3.0, Internet Explorer 9.0, Opera, Safari
-		<div class="class1">
+		<div class="class1" id=f11>
 			<div class="class1">
 				<span class="class1">1-1-1</span>
 				<span class="class2">1-1-2</span>
@@ -59,5 +61,8 @@
 				<span class="class3">3-3-3</span>
 			</div>
 		</div>
+        <script>
+            document.write('<p class=class1 id=sd12><span class=class2><a href="#">Link 1-2-3</a></span></p>');
+        </script>
 	</body>
 </html>
