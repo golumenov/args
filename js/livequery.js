@@ -9,111 +9,134 @@
 
  */
 // Объявляем безымянную функцию () как функцию принимающую объект window в качестве аргумента
+// Второй аргумент - защита от более раннего объявления undefined
 (function(window,undefined) {
     var document=window.document,
-    //Объявляем переменную liveQuery как функцию принимающую 2 аргумента (запрос,контекст)
+    // Объявляем liveQuery как функцию принимающую 2 аргумента (запрос,контекст)
         liveQuery=function (query,context) {
-            //Инициализируем и возвращаем новый объект liveQuery
+            // Инициализируем и возвращаем новый объект liveQuery
             return new liveQuery.fn.init(query,context);
         };
-    //Описываем прототип объекта liveQuery
+    // Описываем прототип объекта liveQuery
     liveQuery.fn=liveQuery.prototype = {
-        //Конструктор
+        // Конструктор
         constructor: liveQuery,
-        //Запрос
+        // Запрос, который разбираем в нем определяются правила поиска
         query: undefined,
-        //Контекст
-        context: document,
-        //Текущий массив элементов
+        // Контекст
+        context: undefined,
+        // Текущий массив элементов
         elements: Array,
-        //Количество элементов
-//        get length() {
-//            this.renew();
-//            return this.elements.length;
-//        },
-        //Инициализация
+        // Инициализация
         init: function (query,context) {
+            //! Проверить значение query reg-expom
             this.query=query;
+            //! Проверить контекст
             this.context=context;
+            // Обновляем информацию о массиве нодов
             this.elements=this.renew(query,context);
+            // возвращаем объект, самого себя, для цепочки вызова функций
             return this;
         },
+        // Объект в массив
         toArray: function () {
-            this.elements=this.renew(this.query,this.context);
+            // обновляем массив нодов
+            this.elements=this.renew();
+            // возвращаем массив нодов
             return this.elements;
         },
+        // Функция геттер, возвращает integer - количество элементов массива нодов на данный момент, паралельно придает "бодряков=)" объекту.
+        // Т.е. каждый раз, когда к объекту обращаются, объект заново запускает функцию поиска элементов, пересчитывает их и возвращает количество элементов
         get length () {
-            this.elements=this.renew(this.query,this.context);
+            // обновляем массив нодов
+            this.elements=this.renew();
+            // возвращаем количество элементов в массиве
             return this.elements.length;
         },
-        renew: function(query,context,counter) {
-//            console.log(query);
-//            console.log(context);
-            var arr,
-                type,
-                output_elements = [],
-                telements = [],
-                ttelements = [],
-                t_counter;
-            // объявляем счетчик рекурсивного вложения функции
-            if (!counter) {
-                t_counter=1;
-            } else {
-                t_counter=counter;
-            }
+        // Функция, производит поиск по объектам HtmlCollection
+        // принимает query - запрос на поиск css style
+        // context - контекст поиска
+        // counter - счетчик вложений.
+        // возвращает массив нодов
+        //! Убрать счетчик
+        renew: function(query,context) {
+            // Массив запросов
+            query = typeof query !== 'undefined' ? query : this.query;
+//            console.log(arguments);
+            var queryArray = [],
+                // Текущий запрос
+                currentQuery,
+                // Тип текущего запроса
+                currentQueryType,
+                // Массив нодов для вывода из функции
+                outputNodesArray = [],
+                // Временный массив для перебора
+                telements = [];
             // Если есть аргументы для разбора
             if (query.length>0) {
-                arr = query.trim().split(' ');
-                type = arr[0].charAt(0);
-                //Если тип аргумента .classname
-                if(type == '.') {
-                    //Если запускается в первый раз, то берем выборку по всему документу
-                    if(t_counter==1) {
-                        output_elements=Array.prototype.slice.call(document.getElementsByClassName(arr[0].slice(1)));
+                // Разбиваем запрос на массив запросов, разделитель пробел
+                queryArray = query.trim().split(' ');
+                // Определяем текущий запрос
+                currentQuery=queryArray[0];
+                // Определяем тип текущего запроса (первый знак строки текущего запроса)
+                currentQueryType = currentQuery.charAt(0);
+                // Если тип аргумента .classname
+                if(currentQueryType == '.') {
+                    // Обрезаем первый символ "." у текущего запроса
+                    currentQuery=currentQuery.slice(1);
+                    // Если контекст поиска пуст, то ищем во всем документе
+                    if(context===undefined) {
+                        context=document;
+                        // Приравниваем массив для вывода массиву нодов html коллекции
+                        outputNodesArray=Array.prototype.slice.call(context.getElementsByClassName(currentQuery));
                     }
-                    // Если запускается не в первый раз и есть контекст для поиска
-                    else if (context.length>0) {
-                        // определяем контекст поиска
-                        telements=context;
+                    // Иначе, если есть контекст для поиска
+                    else {
                         // проходим по всем элементам контекста
-                        for (var i=0, max_i=telements.length;i<max_i;i++) {
-                            if (telements[i].getElementsByClassName(arr[0].slice(1)).length >0) {
-                                // в один массив а не в массив массивов
-                                ttelements=Array.prototype.slice.call(telements[i].getElementsByClassName(arr[0].slice(1)));
-                                for (var j= 0, max_j=ttelements.length;j<max_j;j++) {
-                                    output_elements.push(ttelements[j]);
+                        for (var i=0, max_i=context.length;i<max_i;i++) {
+                            // Если по текущему запросу есть элементы в текущем контексте
+                            if (context[i].getElementsByClassName(currentQuery).length>0) {
+                                // Помещаем во временный массив массив нодов по текущему запросу в текущем контексте
+                                telements=Array.prototype.slice.call(context[i].getElementsByClassName(currentQuery));
+                                // Проходим по временному массиву
+                                for (var j= 0, max_j=telements.length;j<max_j;j++) {
+                                    // Добавляем в массив для вывода из функции новый элемент
+                                    outputNodesArray.push(telements[j]);
                                 }
-
-
                             }
                         }
-                    } else {
-                        return [];
                     }
                 }
-                // заготовка для #idname
-                else if(type == '#') {
+                // если тип элемента #idname
+                else if(currentQueryType == '#') {
                     //elements.getElementById(arr[0].slice(1));
                 }
-                // заготовка для tagname
+                // если тип элемента tagname
                 else {
                     //elements.getElementsByTagName(arr[0]);
                 }
-                // проверяем, есть ли еще классы для поиска (следующий уровень вложенности)
-                if (arr.length>1) {
-                    arr.shift();
-                    arr=arr.join(' ');
-                    t_counter++;
+                // проверяем, есть ли еще запросы для поиска (следующий уровень вложенности)
+                if (queryArray.length>1) {
+                    // сдвигаем массив элементов на 1
+                    queryArray.shift();
+                    // объединяем массив в строку
+                    queryArray=queryArray.join(' ');
                     // запускаем рекурсивно с новым контекстом, элементами для поиска и счетчиком вложенности рекурсии
-                    output_elements=this.renew(arr,output_elements,t_counter);
+                    // получаем массив для вывода
+                    outputNodesArray=this.renew(queryArray,outputNodesArray);
                 }
-                return output_elements;
-            } else {
+                // Возвращаем массив нодов
+                return outputNodesArray;
+            }
+            // Если нет элементов для разбора
+            else {
+                // Возвращаем пустой массив
                 return [];
             }
         }
     };
     liveQuery.fn.init.prototype = liveQuery.fn;
+    // Объявляем $ как синоним liveQuery
     window.liveQuery = window.$ = liveQuery;
 // Конец объявления безымянной функции, вызываем саму себя и передаем объект window в качестве аргумента
 })(window);
