@@ -9,7 +9,8 @@ var a=$('.class1 .class2');
 var b=$('.class2 .class3');
 var c=$('.class3 .class1');
 var d=$('.class1 .class2 .class3');
-//console.log (a);
+
+console.log (a);
 //console.log ($('.class1'));
 window.onload = function () {
 //    console.log (a);
@@ -28,5 +29,9 @@ window.onload = function () {
     console.log (b);
     console.log (c);
     console.log (d);
+    console.log (a.toArray());
 //   console.log('123');
+    console.log(a.html());
+    console.log(a.html('<div class=1>123 ololo</div>'));
+
 };
