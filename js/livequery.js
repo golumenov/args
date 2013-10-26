@@ -1,5 +1,12 @@
 /*
- LiveQuery alpha version
+ LiveQuery version alpha
+
+ Живой Объект для работы с DOM2 посредством HtmlCollection
+ позволяет работать с нодами, которые подчиняются правилу запроса на момент обращения.
+ Особенность и главное отличие от jquery - работает с живым набором нодов,
+ вне зависимости от способа и времени создания нодов на странице.
+
+ Copyright: 2013 Golumenov Andrei aka Zaibatsy, golumenov@mail.ru
 
  Live Javascript query to htmlcollection translator
  liveQueryObject=$(query,context);
